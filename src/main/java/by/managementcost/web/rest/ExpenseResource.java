@@ -18,7 +18,9 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link by.managementcost.domain.Expense}.
@@ -124,6 +126,7 @@ public class ExpenseResource {
         Instant now = Instant.now();
         Instant past = getPast(time, now);
         List<Expense> expenses = expenseRepository.getAllByDateBetween(past, now);
+        Map<String, List<Expense>> map = expenses.stream().collect(Collectors.groupingBy(expense -> expense.getCompany().getName()));
         System.out.println(expenses);
         return expenses;
     }

@@ -27,11 +27,11 @@ public class Expense implements Serializable {
     @Column(name = "date")
     private Instant date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = "expenses", allowSetters = true)
     private Tool tool;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = "expenses", allowSetters = true)
     private Company company;
 
