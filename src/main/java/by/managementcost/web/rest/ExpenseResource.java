@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -117,10 +119,27 @@ public class ExpenseResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
 
-    @GetMapping("/expenses/{time}")
+    @GetMapping("/expenses/bytime/{time}")
     public List<Expense> getExpensesByTime(@PathVariable String time){
+        Instant now = Instant.now();
+        Instant past = getPast(time, now);
+        List<Expense> expenses = expenseRepository.getAllByDateBetween(past, now);
+        System.out.println(expenses);
+        return expenses;
+    }
 
+    private Instant getPast(String time, Instant now) {
+        Instant past = now.minus(365, ChronoUnit.DAYS);
+        if (time.equals("week")){
+            past = now.minus(7, ChronoUnit.DAYS);
+        }
+        if (time.equals("month")){
+            past = now.minus(30, ChronoUnit.DAYS);
+        }
+        if (time.equals("halfyear")){
+            past = now.minus(180, ChronoUnit.DAYS);
+        }
 
-        return null;
+        return past;
     }
 }

@@ -37,6 +37,12 @@ export class ExpenseService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  findAllBetween(time: String): Observable<EntityResponseType> {
+    return this.http
+      .get<IExpense>(`${this.resourceUrl}/bytime/${time}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
