@@ -1,0 +1,40 @@
+{
+  "name": "Expense",
+  "fields": [
+    {
+      "fieldName": "cost",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tool",
+      "otherEntityRelationshipName": "expense",
+      "relationshipName": "tool",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "company",
+      "otherEntityRelationshipName": "expense",
+      "relationshipName": "company",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20200530104731",
+  "entityTableName": "expense",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

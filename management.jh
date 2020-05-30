@@ -1,0 +1,22 @@
+entity Company {
+	name String required   
+}
+
+entity Tool{
+	name String
+    description String
+}
+
+
+//у компании может быть много трат,
+//но у каждой траты - одна компания
+
+entity Expense{
+    cost BigDecimal
+    date Instant
+}
+
+relationship ManyToOne{
+	Expense{tool(name)} to Tool,
+    Expense{company(name)} to Company
+}
